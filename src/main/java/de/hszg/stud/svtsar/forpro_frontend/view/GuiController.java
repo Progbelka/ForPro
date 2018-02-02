@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.MenuItem;
 
 public class GuiController {
 	private App app;
@@ -40,7 +41,10 @@ public class GuiController {
 	private TableColumn<Store, Integer> storeIdColumn;
 
 	@FXML
-	private Button showListBtn;
+	private Button createProductBtn;
+	
+	@FXML
+	private MenuItem Product;
 
 	@FXML
 	private void initialize() {
@@ -55,11 +59,15 @@ public class GuiController {
 		storeIdColumn.setCellValueFactory(cellData -> cellData.getValue().storeIdProperty().asObject());
 	}
 
-	@FXML
-	private void clickListButton() {
-		this.app.showList();
-	}
+//	@FXML
+//	private void createProductEvent() {
+//		this.app.createProduct();
+//	}
 
+	@FXML
+	private void getProductManager() throws Exception {
+		this.app.getProductManagerWindow();
+	}
 	public void setApp(App app) {
 		this.app = app;
 		productTable.setItems(app.getAllProducts());

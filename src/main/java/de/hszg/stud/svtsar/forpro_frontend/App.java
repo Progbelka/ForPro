@@ -1,5 +1,6 @@
 package de.hszg.stud.svtsar.forpro_frontend;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.client.Client;
@@ -16,11 +17,13 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Category;
 import de.hszg.stud.svtsar.forpro_frontend.model.Product;
 import de.hszg.stud.svtsar.forpro_frontend.model.Store;
 import de.hszg.stud.svtsar.forpro_frontend.view.GuiController;
+import de.hszg.stud.svtsar.forpro_frontend.view.ProductController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -102,10 +105,10 @@ public class App extends Application {
 		}
 	}
 
-	public boolean showList() {
+	public boolean createProduct() {
 
 		Product product = new Product();
-		product.setName("testButton");
+		product.setName("testProduct");
 		product.setPrice(20.05);
 
 		Response response = client.target("http://localhost:8080/forpro-backend").path("products/create").request()
@@ -118,5 +121,27 @@ public class App extends Application {
 			return true;
 		}
 
+	}
+
+	
+public void getProductManagerWindow() throws IOException {
+	
+		ProductController productController = new ProductController();
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(getClass().getResource("view/ProductController.fxml"));
+			loader.setController(productController);
+
+			BorderPane pane = (BorderPane) loader.load();
+
+			Stage stage = new Stage();		
+			stage.setScene(new Scene(pane));
+			stage.show();
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
