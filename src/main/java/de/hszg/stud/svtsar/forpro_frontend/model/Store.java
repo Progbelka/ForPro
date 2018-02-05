@@ -5,6 +5,8 @@ import java.util.List;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 
 /**
@@ -15,6 +17,12 @@ public class Store implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private IntegerProperty storeIdProperty;
+	
+	private StringProperty storeCityProperty;
+	
+	private StringProperty storeCountryProperty;
+	
+	private StringProperty storeAddressProperty;
 	
 	private int storeId;
 
@@ -28,6 +36,9 @@ public class Store implements Serializable {
 
 	public Store() {
 		this.storeIdProperty = new SimpleIntegerProperty();
+		this.storeCityProperty = new SimpleStringProperty();
+		this.storeCountryProperty = new SimpleStringProperty();
+		this.storeAddressProperty = new SimpleStringProperty();
 	}
 
 	public int getStoreId() {
@@ -43,27 +54,36 @@ public class Store implements Serializable {
 	}
 
 	public String getAddress() {
-		return this.address;
+		return this.storeAddressProperty.get();
 	}
 
 	public void setAddress(String address) {
-		this.address = address;
+		this.storeAddressProperty.set(address);
 	}
 
+	public StringProperty storeAddressProperty() {
+		return storeAddressProperty;
+	}
 	public String getCity() {
-		return this.city;
+		return this.storeCityProperty.get();
 	}
 
 	public void setCity(String city) {
-		this.city = city;
+		this.storeCityProperty.set(city);
 	}
 
+	public StringProperty storeCityProperty() {
+		return storeCityProperty;
+	}
 	public String getCountry() {
-		return this.country;
+		return this.storeCountryProperty.get();
 	}
 
 	public void setCountry(String country) {
-		this.country = country;
+		this.storeCountryProperty.set(country);
+	}
+	public StringProperty storeCountryProperty() {
+		return storeCountryProperty;
 	}
 
 	public List<ProductInStore> getProductInStores() {

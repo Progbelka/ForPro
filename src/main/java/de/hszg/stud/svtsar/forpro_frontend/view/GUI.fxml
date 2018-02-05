@@ -40,9 +40,9 @@
                <items>
                   <MenuItem fx:id="Products" mnemonicParsing="false" onAction="#getProductManager" text="Products" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Categories" />
-                  <MenuItem mnemonicParsing="false" text="Stocks" />
-                  <MenuItem mnemonicParsing="false" text="Stores" />
+                  <MenuItem fx:id="Category" mnemonicParsing="false" onAction="#getCategoryManager" text="Categories" />
+                  <MenuItem fx:id="Stocks" mnemonicParsing="false" onAction="#getStockManager" text="Stocks" />
+                  <MenuItem fx:id="Stores" mnemonicParsing="false" onAction="#getStoreManager" text="Stores" />
                </items>
             </Menu>
             <Menu mnemonicParsing="false" text="Help">
@@ -123,21 +123,21 @@
                         <TableView fx:id="storeTable" prefHeight="200.0" prefWidth="200.0">
                           <columns>
                             <TableColumn fx:id="storeIdColumn" prefWidth="75.0" text="ID" />
-                            <TableColumn prefWidth="75.0" text="City" />
-                              <TableColumn prefWidth="75.0" text="Country" />
-                              <TableColumn prefWidth="75.0" text="Address" />
+                            <TableColumn fx:id="storeCityColumn" prefWidth="75.0" text="City" />
+                              <TableColumn fx:id="storeCountryColumn" prefWidth="75.0" text="Country" />
+                              <TableColumn fx:id="storeAddressColumn" prefWidth="75.0" text="Address" />
                           </columns>
                         </TableView>
                      </content>
                   </Tab>
-                  <Tab text="Stocks">
+                  <Tab  text="Stocks">
                      <content>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="stocksTable" prefHeight="200.0" prefWidth="200.0">
                           <columns>
-                              <TableColumn prefWidth="75.0" text="ID" />
-                              <TableColumn prefWidth="75.0" text="City" />
-                              <TableColumn prefWidth="75.0" text="Country" />
-                              <TableColumn prefWidth="75.0" text="Address" />
+                              <TableColumn fx:id="stockIdColumn" prefWidth="75.0" text="ID" />
+                              <TableColumn fx:id="stockCityColumn" prefWidth="75.0" text="City" />
+                              <TableColumn fx:id="stockCountryColumn" prefWidth="75.0" text="Country" />
+                              <TableColumn fx:id="stockAddressColumn" prefWidth="75.0" text="Address" />
                           </columns>
                         </TableView>
                      </content>

@@ -15,9 +15,13 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 
 import de.hszg.stud.svtsar.forpro_frontend.model.Category;
 import de.hszg.stud.svtsar.forpro_frontend.model.Product;
+import de.hszg.stud.svtsar.forpro_frontend.model.Stock;
 import de.hszg.stud.svtsar.forpro_frontend.model.Store;
+import de.hszg.stud.svtsar.forpro_frontend.view.CategoryController;
 import de.hszg.stud.svtsar.forpro_frontend.view.GuiController;
 import de.hszg.stud.svtsar.forpro_frontend.view.ProductController;
+import de.hszg.stud.svtsar.forpro_frontend.view.StockController;
+import de.hszg.stud.svtsar.forpro_frontend.view.StoreController;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -104,6 +108,21 @@ public class App extends Application {
 			return FXCollections.observableArrayList(store);
 		}
 	}
+	
+	public ObservableList<Stock> getAllStocks() {
+		Response response = client.target("http://localhost:8080/forpro-backend").path("stocks/getAll")
+				.request(MediaType.APPLICATION_JSON).get();
+
+		if (response.getStatus() != 200) {
+			System.err.println(response.readEntity(String.class));
+			return FXCollections.observableArrayList();
+		} else {
+			List<Stock> stock = response.readEntity(new GenericType<List<Stock>>() {
+
+			});
+			return FXCollections.observableArrayList(stock);
+		}
+	}
 
 	public boolean createProduct() {
 
@@ -144,4 +163,66 @@ public void getProductManagerWindow() throws IOException {
 		}
 		
 	}
+public void getCategoryManagerWindow() throws IOException {
+	
+	CategoryController categoryController = new CategoryController();
+	try {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("view/CategoryController.fxml"));
+		loader.setController(categoryController);
+
+		BorderPane pane = (BorderPane) loader.load();
+
+		Stage stage = new Stage();		
+		stage.setScene(new Scene(pane));
+		stage.show();
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
+
+public void getStockManagerWindow() throws IOException {
+	
+	StockController stockController = new StockController();
+	try {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("view/StockController.fxml"));
+		loader.setController(stockController);
+
+		BorderPane pane = (BorderPane) loader.load();
+
+		Stage stage = new Stage();		
+		stage.setScene(new Scene(pane));
+		stage.show();
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
+
+public void getStoreManagerWindow() throws IOException {
+	
+	StoreController storeController = new StoreController();
+	try {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("view/StoreController.fxml"));
+		loader.setController(storeController);
+
+		BorderPane pane = (BorderPane) loader.load();
+
+		Stage stage = new Stage();		
+		stage.setScene(new Scene(pane));
+		stage.show();
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
 }
