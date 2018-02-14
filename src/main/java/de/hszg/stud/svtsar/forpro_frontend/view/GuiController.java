@@ -1,19 +1,42 @@
 package de.hszg.stud.svtsar.forpro_frontend.view;
 
+
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.jackson.JacksonFeature;
+
 import de.hszg.stud.svtsar.forpro_frontend.App;
 import de.hszg.stud.svtsar.forpro_frontend.model.Category;
 import de.hszg.stud.svtsar.forpro_frontend.model.Product;
 import de.hszg.stud.svtsar.forpro_frontend.model.Store;
 import de.hszg.stud.svtsar.forpro_frontend.model.Stock;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.util.StringConverter;
 import javafx.scene.control.MenuItem;
 
 public class GuiController {
 	private App app;
+	private Client client;
 
+	
+	private void setClient() {
+		ClientConfig config = new ClientConfig();
+		config.register(JacksonFeature.class);
+		
+		client = ClientBuilder.newClient(config);
+	}
+	
 	@FXML
 	private TableView<Product> productTable;
 
@@ -67,9 +90,9 @@ public class GuiController {
 	
 	@FXML
 	private TableColumn<Stock, String> stockAddressColumn;
+	
 	@FXML
 	private Button createProductBtn;
-	
 	
 	@FXML
 	private MenuItem Product;
@@ -83,25 +106,6 @@ public class GuiController {
 	@FXML
 	private MenuItem Stores;
 	
-	@FXML
-	private void initialize() {
-		productIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
-		productNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
-		productPriceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
-
-		categoryIdColumn.setCellValueFactory(cellData -> cellData.getValue().categoryIdProperty().asObject());
-		categoryNameColumn.setCellValueFactory(cellData -> cellData.getValue().categoryNameProperty());
-
-		storeIdColumn.setCellValueFactory(cellData -> cellData.getValue().storeIdProperty().asObject());
-		storeCityColumn.setCellValueFactory(cellData -> cellData.getValue().storeCityProperty());
-		storeCountryColumn.setCellValueFactory(cellData -> cellData.getValue().storeCountryProperty());
-		storeAddressColumn.setCellValueFactory(cellData -> cellData.getValue().storeAddressProperty());
-		
-		stockIdColumn.setCellValueFactory(cellData -> cellData.getValue().stockIdProperty().asObject());
-		stockCityColumn.setCellValueFactory(cellData -> cellData.getValue().stockCityProperty());
-		stockCountryColumn.setCellValueFactory(cellData -> cellData.getValue().stockCountryProperty());
-		stockAddressColumn.setCellValueFactory(cellData -> cellData.getValue().stockAddressProperty());
-	}
 
 //	@FXML
 //	private void createProductEvent() {
@@ -124,11 +128,108 @@ public class GuiController {
 	private void getStockManager() throws Exception {
 		this.app.getStockManagerWindow();
 	}
+	
+	@FXML 
+	private ComboBox<Category> categoryListCombo;
+	
+	@FXML 
+	private ComboBox<Product> productListCombo;
+	
+	@FXML 
+	private ComboBox<Stock> stockListCombo;
+	
+	@FXML 
+	private ComboBox<Store> storeListCombo;
+	
+	@FXML
+	private void initialize() {
+		
+		productIdColumn.setCellValueFactory(cellData -> cellData.getValue().productIdProperty().asObject());
+		productNameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
+		productPriceColumn.setCellValueFactory(cellData -> cellData.getValue().priceProperty().asObject());
+		
+		categoryIdColumn.setCellValueFactory(cellData -> cellData.getValue().categoryIdProperty().asObject());
+		categoryNameColumn.setCellValueFactory(cellData -> cellData.getValue().categoryNameProperty());
+		
+		storeIdColumn.setCellValueFactory(cellData -> cellData.getValue().storeIdProperty().asObject());
+		storeCityColumn.setCellValueFactory(cellData -> cellData.getValue().storeCityProperty());
+		storeCountryColumn.setCellValueFactory(cellData -> cellData.getValue().storeCountryProperty());
+		storeAddressColumn.setCellValueFactory(cellData -> cellData.getValue().storeAddressProperty());
+		
+		stockIdColumn.setCellValueFactory(cellData -> cellData.getValue().stockIdProperty().asObject());
+		stockCityColumn.setCellValueFactory(cellData -> cellData.getValue().stockCityProperty());
+		stockCountryColumn.setCellValueFactory(cellData -> cellData.getValue().stockCountryProperty());
+		stockAddressColumn.setCellValueFactory(cellData -> cellData.getValue().stockAddressProperty());
+		
+	}
+	
+	
 	public void setApp(App app) {
 		this.app = app;
+		setClient(); 
+		
 		productTable.setItems(app.getAllProducts());
 		categoryTable.setItems(app.getAllCategories());
 		storeTable.setItems(app.getAllStores());
 		stocksTable.setItems(app.getAllStocks());
+		
+		
+		StringConverter<Category> categoryStringConverter = new StringConverter<Category>() {
+			@Override
+			public Category fromString(String s) {
+				return null;
+			}
+			@Override
+			public String toString(Category category) {
+				return category.getName();
+			}
+			
+		};
+		
+		StringConverter<Stock> stockStringConverter = new StringConverter<Stock>() {
+			@Override
+			public Stock fromString(String s) {
+				return null;
+			}
+			@Override
+			public String toString(Stock stock) {
+				return stock.getCity();
+			}
+			
+		};
+		
+		StringConverter<Store> storeStringConverter = new StringConverter<Store>() {
+			@Override
+			public Store fromString(String s) {
+				return null;
+			}
+			@Override
+			public String toString(Store store) {
+				return store.getCity();
+			}
+			
+		};
+		
+		StringConverter<Product> productStringConverter = new StringConverter<Product>() {
+			@Override
+			public Product fromString(String s) {
+				return null;
+			}
+			@Override
+			public String toString(Product product) {
+				return product.getName();
+			}
+			
+		};
+		
+		categoryListCombo.setConverter(categoryStringConverter);
+		stockListCombo.setConverter(stockStringConverter);
+		storeListCombo.setConverter(storeStringConverter);
+		productListCombo.setConverter(productStringConverter);
+
+		categoryListCombo.setItems(app.getAllCategories());
+		productListCombo.setItems(app.getAllProducts());
+		stockListCombo.setItems(app.getAllStocks());
+		storeListCombo.setItems(app.getAllStores());
 	}
 }

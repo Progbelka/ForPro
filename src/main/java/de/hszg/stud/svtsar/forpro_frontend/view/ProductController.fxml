@@ -48,13 +48,13 @@
                      <center>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField layoutX="116.0" layoutY="19.0" />
+                              <TextField fx:id="productNameTF" layoutX="116.0" layoutY="19.0" />
                               <Label layoutX="14.0" layoutY="23.0" text="Product name" />
                               <Label layoutX="14.0" layoutY="65.0" prefHeight="17.0" prefWidth="79.0" text="Price" />
                               <Label layoutX="14.0" layoutY="108.0" text="Category" />
-                              <TextField layoutX="116.0" layoutY="61.0" />
-                              <ComboBox layoutX="116.0" layoutY="104.0" prefWidth="150.0" />
-                              <Button fx:id="createProductButton" layoutX="351.0" layoutY="104.0" mnemonicParsing="false" onAction="#createProductButton" prefHeight="25.0" prefWidth="129.0" text="Create" />
+                              <TextField fx:id="productPriceTF" layoutX="116.0" layoutY="61.0" />
+                              <ComboBox fx:id="CategoryComboCR" layoutX="116.0" layoutY="104.0" prefWidth="150.0" />
+                              <Button fx:id="createProductButton" layoutX="351.0" layoutY="104.0" mnemonicParsing="false" onAction="#createProduct" prefHeight="25.0" prefWidth="129.0" text="Create" />
                            </children>
                         </AnchorPane>
                      </center>
@@ -80,16 +80,16 @@
                           </rowConstraints>
                            <children>
                               <Label text="Choose a product's category" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="CategoryComboUPD" prefWidth="150.0" GridPane.columnIndex="1" />
                               <Label text="Choose a Product's Name" GridPane.rowIndex="1" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="ProductNameComboUPD" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Change name to" GridPane.rowIndex="2" />
-                              <TextField minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <TextField fx:id="newProductName" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                               <Label text="Change category to" GridPane.rowIndex="3" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                              <ComboBox fx:id="OtherCategoryComboUPD" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                               <Label text="Change price to" GridPane.rowIndex="4" />
-                              <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                              <Button mnemonicParsing="false" text="Save changes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <TextField fx:id="newProductPrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                              <Button fx:id="saveUpdates" mnemonicParsing="false" text="Save changes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                      </center>
@@ -111,9 +111,9 @@
                             <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="117.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <Button fx:id="ProductDELBtn" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <ComboBox fx:id="CategoryComboDEL" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <ComboBox fx:id="ProductNameComboDEL" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                               <Label text="Choose product's category" />
                               <Label text="Choose product's name" GridPane.rowIndex="1" />
                            </children>

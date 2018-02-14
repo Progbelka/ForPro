@@ -48,9 +48,13 @@
                      <center>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TextField layoutX="116.0" layoutY="19.0" />
-                              <Label layoutX="14.0" layoutY="23.0" text="Stock name" />
-                              <Button layoutX="116.0" layoutY="105.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Create" />
+                              <TextField fx:id="stockCountryTF" layoutX="116.0" layoutY="19.0" prefHeight="25.0" prefWidth="234.0" />
+                              <Label layoutX="14.0" layoutY="23.0" text="Stock country" />
+                              <Button fx:id="createStock" layoutX="116.0" layoutY="151.0" mnemonicParsing="false" onAction="#createStock" prefHeight="25.0" prefWidth="149.0" text="Create" />
+                              <Label layoutX="14.0" layoutY="68.0" text="Stock city" />
+                              <TextField fx:id="stockCityTF" layoutX="116.0" layoutY="64.0" prefHeight="25.0" prefWidth="231.0" />
+                              <TextField fx:id="stockAddressTF" layoutX="116.0" layoutY="109.0" prefHeight="25.0" prefWidth="232.0" />
+                              <Label layoutX="14.0" layoutY="113.0" text="Address" />
                            </children>
                         </AnchorPane>
                      </center>
@@ -76,10 +80,10 @@
                           </rowConstraints>
                            <children>
                               <Label text="Choose a stock" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
-                              <Label text="Change name to" GridPane.rowIndex="2" />
-                              <TextField minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                              <Button mnemonicParsing="false" text="Save changes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                              <ComboBox fx:id="StockComboUPD" prefWidth="150.0" GridPane.columnIndex="1" />
+                              <Label text="Change country to" GridPane.rowIndex="2" />
+                              <TextField fx:id="StockNewCountryTF" minWidth="-Infinity" prefHeight="25.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                              <Button fx:id="saveUpdates" mnemonicParsing="false" text="Save changes" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                            </children>
                         </GridPane>
                      </center>
@@ -101,8 +105,8 @@
                             <RowConstraints maxHeight="143.0" minHeight="0.0" prefHeight="117.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Button mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                              <ComboBox prefWidth="150.0" GridPane.columnIndex="1" />
+                              <Button fx:id="deleteStock" mnemonicParsing="false" prefHeight="25.0" prefWidth="154.0" text="Delete" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                              <ComboBox fx:id="StockComboDEL" prefWidth="150.0" GridPane.columnIndex="1" />
                               <Label text="Choose a stock" />
                            </children>
                         </GridPane>

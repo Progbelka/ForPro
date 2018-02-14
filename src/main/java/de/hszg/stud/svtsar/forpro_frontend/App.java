@@ -27,14 +27,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-/**
- * Hello world!
- *
- */
+
 public class App extends Application {
 
 	private Client client;
@@ -124,23 +120,23 @@ public class App extends Application {
 		}
 	}
 
-	public boolean createProduct() {
-
-		Product product = new Product();
-		product.setName("testProduct");
-		product.setPrice(20.05);
-
-		Response response = client.target("http://localhost:8080/forpro-backend").path("products/create").request()
-				.put(Entity.json(product));
-
-		if (response.getStatus() != 200) {
-			System.err.println(response.readEntity(String.class));
-			return false;
-		} else {
-			return true;
-		}
-
-	}
+//	public boolean createProduct() {
+//
+//		Product product = new Product();
+//		product.setName("Check");
+//		product.setPrice(20.05);
+//
+//		Response response = client.target("http://localhost:8080/forpro-backend").path("products/create").request()
+//				.put(Entity.json(product));
+//
+//		if (response.getStatus() != 200) {
+//			System.err.println(response.readEntity(String.class));
+//			return false;
+//		} else {
+//			return true;
+//		}
+//
+//	}
 
 	
 public void getProductManagerWindow() throws IOException {
