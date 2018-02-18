@@ -65,6 +65,10 @@ public class CategoryController {
 		this.app = app;
 		setClient();
 		
+	}
+	
+	@FXML
+	private void loadItems() {
 		StringConverter<Category> categoryStringConverter = new StringConverter<Category>() {
 			@Override
 			public Category fromString(String s) {
@@ -80,12 +84,14 @@ public class CategoryController {
 		categoryListCombo.setConverter(categoryStringConverter);
 		
 		categoryListCombo.setItems(app.getAllCategories());
+		
 	}
-	
 	@FXML
 	private void initialize() {
+		
 //		categoryList.addAll("test", "check");
 //		categoryListCombo.setItems(categoryList);
+
 	}
 	@FXML
 	public boolean createCategory() {

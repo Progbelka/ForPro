@@ -21,22 +21,6 @@
    <top>
       <MenuBar BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="File">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="New" />
-                  <MenuItem mnemonicParsing="false" text="Open…" />
-                  <Menu mnemonicParsing="false" text="Open Recent" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Save" />
-                  <MenuItem mnemonicParsing="false" text="Save As…" />
-                  <MenuItem mnemonicParsing="false" text="Revert" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Preferences…" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
-               </items>
-            </Menu>
             <Menu mnemonicParsing="false" text="Manage">
                <items>
                   <MenuItem fx:id="Products" mnemonicParsing="false" onAction="#getProductManager" text="Products" />
@@ -44,11 +28,6 @@
                   <MenuItem fx:id="Category" mnemonicParsing="false" onAction="#getCategoryManager" text="Categories" />
                   <MenuItem fx:id="Stocks" mnemonicParsing="false" onAction="#getStockManager" text="Stocks" />
                   <MenuItem fx:id="Stores" mnemonicParsing="false" onAction="#getStoreManager" text="Stores" />
-               </items>
-            </Menu>
-            <Menu mnemonicParsing="false" text="Help">
-               <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
                </items>
             </Menu>
          </menus>
@@ -86,7 +65,7 @@
                               <Label alignment="CENTER" prefHeight="17.0" prefWidth="151.0" text="Stock city" GridPane.rowIndex="5" />
                               <ComboBox fx:id="storeListCombo" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                               <ComboBox fx:id="stockListCombo" prefHeight="25.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                              <Button fx:id="createProductBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="126.0" text="Show list" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                              <Button fx:id="filterBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#filter" prefHeight="25.0" prefWidth="126.0" text="Show list" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="6" />
                               <Label prefHeight="22.0" prefWidth="277.0" text="Please select the parameters of a product" GridPane.columnIndex="1">
                                  <font>
                                     <Font size="14.0" />

@@ -18,6 +18,7 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Product;
 import de.hszg.stud.svtsar.forpro_frontend.model.Stock;
 import de.hszg.stud.svtsar.forpro_frontend.model.Store;
 import de.hszg.stud.svtsar.forpro_frontend.view.CategoryController;
+import de.hszg.stud.svtsar.forpro_frontend.view.FilterController;
 import de.hszg.stud.svtsar.forpro_frontend.view.GuiController;
 import de.hszg.stud.svtsar.forpro_frontend.view.ProductController;
 import de.hszg.stud.svtsar.forpro_frontend.view.StockController;
@@ -46,10 +47,11 @@ public class App extends Application {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/GUI.fxml"));
 		BorderPane pane = loader.load();
-
+		loader.setRoot(this);
 		GuiController controller = loader.getController();
 		controller.setApp(this);
 
+		primaryStage.setTitle("Goods movement");
 		primaryStage.setScene(new Scene(pane));
 		primaryStage.show();
 	}
@@ -71,6 +73,7 @@ public class App extends Application {
 		} else {
 			List<Product> products = response.readEntity(new GenericType<List<Product>>() {
 			});
+			System.out.println(" list = "+products.toString());
 			return FXCollections.observableArrayList(products);
 		}
 	}
@@ -78,14 +81,13 @@ public class App extends Application {
 	public ObservableList<Category> getAllCategories() {
 		Response response = client.target("http://localhost:8080/forpro-backend").path("category/getAll")
 				.request(MediaType.APPLICATION_JSON).get();
-
+		System.out.println("Response "+response.toString());
 		if (response.getStatus() != 200) {
 			System.err.println(response.readEntity(String.class));
 			return FXCollections.observableArrayList();
 		} else {
-			List<Category> category = response.readEntity(new GenericType<List<Category>>() {
-
-			});
+			List<Category> category = response.readEntity(new GenericType<List<Category>>() {});
+			System.out.println(" list = "+category.toString());
 			return FXCollections.observableArrayList(category);
 		}
 	}
@@ -150,6 +152,7 @@ public void getProductManagerWindow() throws IOException {
 			BorderPane pane = (BorderPane) loader.load();
 
 			Stage stage = new Stage();		
+			stage.setTitle("Product manager");
 			stage.setScene(new Scene(pane));
 			stage.show();
 			
@@ -161,15 +164,16 @@ public void getProductManagerWindow() throws IOException {
 	}
 public void getCategoryManagerWindow() throws IOException {
 	
-	CategoryController categoryController = new CategoryController();
+//	CategoryController categoryController = new CategoryController();
 	try {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/CategoryController.fxml"));
-		loader.setController(categoryController);
+//		loader.setController(categoryController);
 
 		BorderPane pane = (BorderPane) loader.load();
 
-		Stage stage = new Stage();		
+		Stage stage = new Stage();	
+		stage.setTitle("Category manager");
 		stage.setScene(new Scene(pane));
 		stage.show();
 		
@@ -190,7 +194,8 @@ public void getStockManagerWindow() throws IOException {
 
 		BorderPane pane = (BorderPane) loader.load();
 
-		Stage stage = new Stage();		
+		Stage stage = new Stage();	
+		stage.setTitle("Stock manager");
 		stage.setScene(new Scene(pane));
 		stage.show();
 		
@@ -211,7 +216,8 @@ public void getStoreManagerWindow() throws IOException {
 
 		BorderPane pane = (BorderPane) loader.load();
 
-		Stage stage = new Stage();		
+		Stage stage = new Stage();	
+		stage.setTitle("Store manager");
 		stage.setScene(new Scene(pane));
 		stage.show();
 		
@@ -221,4 +227,27 @@ public void getStoreManagerWindow() throws IOException {
 	}
 	
 }
+
+public void getFilterWindow() throws IOException {
+	
+	FilterController filterController = new FilterController();
+	try {
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(getClass().getResource("view/FilterController.fxml"));
+		loader.setController(filterController);
+
+		BorderPane pane = (BorderPane) loader.load();
+
+		Stage stage = new Stage();	
+		stage.setTitle("Filter");
+		stage.setScene(new Scene(pane));
+		stage.show();
+		
+		
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+	
+}
+
 }

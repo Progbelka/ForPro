@@ -2,6 +2,8 @@ package de.hszg.stud.svtsar.forpro_frontend.model;
 
 import java.io.Serializable;
 
+import javafx.beans.property.IntegerProperty;
+
 
 /**
  * The persistent class for the product_in_stock database table.
@@ -10,7 +12,11 @@ import java.io.Serializable;
 public class ProductInStock implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
+	private IntegerProperty productInStockIdProperty;
+	
 	private int productInStockId;
+	
+	private IntegerProperty amountAvailableProperty;
 
 	private int amountAvailable;
 
@@ -22,11 +28,11 @@ public class ProductInStock implements Serializable {
 	}
 
 	public int getAmountAvailable() {
-		return this.amountAvailable;
+		return this.amountAvailableProperty.get();
 	}
 
 	public void setAmountAvailable(int amountAvailable) {
-		this.amountAvailable = amountAvailable;
+		this.amountAvailableProperty.set(amountAvailable);
 	}
 
 	public Stock getStock() {
@@ -46,11 +52,11 @@ public class ProductInStock implements Serializable {
 	}
 
 	public int getProductInStockId() {
-		return productInStockId;
+		return productInStockIdProperty.get();
 	}
 
 	public void setProductInStockId(int productInStockId) {
-		this.productInStockId = productInStockId;
+		this.productInStockIdProperty.set(productInStockId);
 	}
 
 }

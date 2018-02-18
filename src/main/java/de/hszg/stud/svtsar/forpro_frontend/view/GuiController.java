@@ -1,11 +1,10 @@
 package de.hszg.stud.svtsar.forpro_frontend.view;
 
 
+import java.io.IOException;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -15,13 +14,12 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Category;
 import de.hszg.stud.svtsar.forpro_frontend.model.Product;
 import de.hszg.stud.svtsar.forpro_frontend.model.Store;
 import de.hszg.stud.svtsar.forpro_frontend.model.Stock;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Window;
 import javafx.util.StringConverter;
 import javafx.scene.control.MenuItem;
 
@@ -29,13 +27,13 @@ public class GuiController {
 	private App app;
 	private Client client;
 
-	
 	private void setClient() {
 		ClientConfig config = new ClientConfig();
 		config.register(JacksonFeature.class);
 		
 		client = ClientBuilder.newClient(config);
 	}
+
 	
 	@FXML
 	private TableView<Product> productTable;
@@ -92,7 +90,7 @@ public class GuiController {
 	private TableColumn<Stock, String> stockAddressColumn;
 	
 	@FXML
-	private Button createProductBtn;
+	private Button filterBtn;
 	
 	@FXML
 	private MenuItem Product;
@@ -107,10 +105,6 @@ public class GuiController {
 	private MenuItem Stores;
 	
 
-//	@FXML
-//	private void createProductEvent() {
-//		this.app.createProduct();
-//	}
 
 	@FXML
 	private void getProductManager() throws Exception {
@@ -140,6 +134,21 @@ public class GuiController {
 	
 	@FXML 
 	private ComboBox<Store> storeListCombo;
+	
+	@FXML
+	private void filter() throws IOException{
+		String category = categoryListCombo.getValue().toString();
+		String product = productListCombo.getValue().toString();
+		
+		if(stockListCombo.getValue() != null) {
+			String stock = stockListCombo.getValue().toString();
+		}
+		if(storeListCombo.getValue() != null) {			
+			String store = storeListCombo.getValue().toString();
+		}
+		
+		this.app.getFilterWindow();
+	}
 	
 	@FXML
 	private void initialize() {
