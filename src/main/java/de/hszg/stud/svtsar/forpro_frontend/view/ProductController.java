@@ -14,6 +14,7 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Product;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
@@ -36,6 +37,9 @@ public class ProductController {
 	
 	@FXML
 	private ComboBox<Category> CategoryComboCR;
+	
+	@FXML
+	private Label created;
 	
 	@FXML
 	private ComboBox<Category> CategoryComboUPD;
@@ -69,13 +73,16 @@ public class ProductController {
 	
 	@FXML
 	private void initialize() {
-		
+		loadComboItems();
 	}
 	
 	public void setApp(App app) {
 		this.app = app;
 		setClient();
-		
+	}
+	
+	@FXML
+	private void loadComboItems(){
 		StringConverter<Category> categoryStringConverter = new StringConverter<Category>() {
 			@Override
 			public Category fromString(String s) {
@@ -103,7 +110,7 @@ public class ProductController {
 		CategoryComboCR.setConverter(categoryStringConverter);
 		ProductNameComboUPD.setConverter(productStringConverter);
 		CategoryComboUPD.setConverter(categoryStringConverter);
-
+		
 		CategoryComboCR.setItems(app.getAllCategories());
 		CategoryComboUPD.setItems(app.getAllCategories());
 		ProductNameComboUPD.setItems(app.getAllProducts());
@@ -117,9 +124,39 @@ public class ProductController {
 		Product product = new Product();
 		product.setName(productNameTF.getText());
 		product.setPrice(Double.parseDouble(productPriceTF.getText()));
+		product.setCategory(CategoryComboCR.getValue());
 
+		created.setText("Product was created");
+		productNameTF.clear();
+		productPriceTF.clear();
+		CategoryComboCR.setValue(null);
 		Response response = client.target("http://localhost:8080/forpro-backend").path("products/create").request()
 				.put(Entity.json(product));
+
+		if (response.getStatus() != 200) {
+			System.err.println(response.readEntity(String.class));
+			return false;
+		} else {
+			return true;
+		}
+
+	}
+	
+	@FXML
+	public boolean updateProduct() {
+		setClient();
+		Product product = app.getProductByName(ProductNameComboUPD.getValue().toString());
+//		System.out.println(product.getName().toString());
+//		product.setName(newProductName.getText());
+//		product.setPrice(Double.parseDouble(productPriceTF.getText()));
+//		product.setCategory(CategoryComboCR.getValue());
+
+//		created.setText("Product was updated");
+//		productNameTF.clear();
+//		productPriceTF.clear();
+//		CategoryComboCR.setValue(null);
+		Response response = client.target("http://localhost:8080/forpro-backend").path("products/findByName").request()
+				.get(Response.class);
 
 		if (response.getStatus() != 200) {
 			System.err.println(response.readEntity(String.class));

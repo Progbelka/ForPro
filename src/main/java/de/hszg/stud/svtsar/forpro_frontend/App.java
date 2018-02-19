@@ -77,17 +77,31 @@ public class App extends Application {
 			return FXCollections.observableArrayList(products);
 		}
 	}
+	
+	public Product getProductByName(String name) {
+		Response response = client.target("http://localhost:8080/forpro-backend").path("products/findByName")
+				.request(MediaType.APPLICATION_JSON).get();
+
+		if (response.getStatus() != 200) {
+			return null;
+		} else {
+			Product product = response.readEntity(new GenericType<Product>() {});
+			System.out.println(" Product by name = "+product.toString());
+			return product;
+		}
+	}
 
 	public ObservableList<Category> getAllCategories() {
 		Response response = client.target("http://localhost:8080/forpro-backend").path("category/getAll")
 				.request(MediaType.APPLICATION_JSON).get();
-		System.out.println("Response "+response.toString());
+		System.out.println("Response "+response.toString());	// CHECK
 		if (response.getStatus() != 200) {
 			System.err.println(response.readEntity(String.class));
 			return FXCollections.observableArrayList();
 		} else {
 			List<Category> category = response.readEntity(new GenericType<List<Category>>() {});
-			System.out.println(" list = "+category.toString());
+			System.out.println("Category list to String = "+category.toString());	//CHECK
+			System.out.println("List to return " +FXCollections.observableArrayList(category));
 			return FXCollections.observableArrayList(category);
 		}
 	}
@@ -148,7 +162,7 @@ public void getProductManagerWindow() throws IOException {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(getClass().getResource("view/ProductController.fxml"));
 			loader.setController(productController);
-
+			productController.setApp(this);
 			BorderPane pane = (BorderPane) loader.load();
 
 			Stage stage = new Stage();		
@@ -164,12 +178,12 @@ public void getProductManagerWindow() throws IOException {
 	}
 public void getCategoryManagerWindow() throws IOException {
 	
-//	CategoryController categoryController = new CategoryController();
+	CategoryController categoryController = new CategoryController();
 	try {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/CategoryController.fxml"));
-//		loader.setController(categoryController);
-
+		loader.setController(categoryController);
+		categoryController.setApp(this);
 		BorderPane pane = (BorderPane) loader.load();
 
 		Stage stage = new Stage();	
@@ -191,7 +205,8 @@ public void getStockManagerWindow() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/StockController.fxml"));
 		loader.setController(stockController);
-
+		stockController.setApp(this);
+		
 		BorderPane pane = (BorderPane) loader.load();
 
 		Stage stage = new Stage();	
@@ -213,7 +228,8 @@ public void getStoreManagerWindow() throws IOException {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(getClass().getResource("view/StoreController.fxml"));
 		loader.setController(storeController);
-
+		storeController.setApp(this);
+		
 		BorderPane pane = (BorderPane) loader.load();
 
 		Stage stage = new Stage();	

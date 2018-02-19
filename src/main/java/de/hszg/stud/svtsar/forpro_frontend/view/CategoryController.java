@@ -17,6 +17,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
@@ -37,14 +38,17 @@ public class CategoryController {
 	@FXML
 	private TextField categoryNameTF;
 	
-//	@FXML
-//	private TextField parentCategoryName;
+	@FXML
+	private ComboBox<Category> categoryListCombo;
 	
 	@FXML
 	private Button createCategoryButton;
 	
+	@FXML
+	private Label created;
+	
 	@FXML 
-	private ComboBox<Category> categoryListCombo;
+	private ComboBox<Category> categoryComboUPD;
 	
 	@FXML
 	private TextField categoryNewNameTF;
@@ -82,12 +86,18 @@ public class CategoryController {
 		};
 		
 		categoryListCombo.setConverter(categoryStringConverter);
+		categoryComboDel.setConverter(categoryStringConverter);
+//		categoryComboUPD.setConverter(categoryStringConverter);
 		
 		categoryListCombo.setItems(app.getAllCategories());
+		categoryComboDel.setItems(app.getAllCategories());
+//		categoryComboUPD.setItems(app.getAllCategories());
 		
 	}
 	@FXML
 	private void initialize() {
+
+		loadItems();
 		
 //		categoryList.addAll("test", "check");
 //		categoryListCombo.setItems(categoryList);
@@ -100,7 +110,8 @@ public class CategoryController {
 		Category category = new Category();
 		category.setName(categoryNameTF.getText());
 
-
+		created.setText("Category was created");
+		categoryNameTF.clear();
 		Response response = client.target("http://localhost:8080/forpro-backend").path("category/create").request()
 				.put(Entity.json(category));
 

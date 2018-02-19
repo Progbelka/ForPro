@@ -14,6 +14,7 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Store;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StoreController {
@@ -39,6 +40,9 @@ public class StoreController {
 	
 	@FXML
 	private Button createStoreButton;
+	
+	@FXML 
+	private Label created;
 	
 	@FXML
 	private ComboBox<Store> StoreComboUPD;
@@ -78,9 +82,14 @@ public class StoreController {
 		Store store = new Store();
 		store.setCity(storeCityTF.getText());
 		store.setCountry(storeCountryTF.getText());
-//		stock.setAddress(stockAddressTF.getText());
+		store.setAddress(storeAddressTF.getText());
+		
+		created.setText("Store was created");
+		storeCityTF.clear();
+		storeCountryTF.clear();
+		storeAddressTF.clear();
 
-		Response response = client.target("http://localhost:8080/forpro-backend").path("stocks/create").request()
+		Response response = client.target("http://localhost:8080/forpro-backend").path("stores/create").request()
 				.put(Entity.json(store));
 
 		if (response.getStatus() != 200) {

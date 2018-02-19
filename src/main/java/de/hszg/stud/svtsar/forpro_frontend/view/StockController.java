@@ -14,6 +14,7 @@ import de.hszg.stud.svtsar.forpro_frontend.model.Stock;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class StockController {
@@ -39,6 +40,9 @@ public class StockController {
 	
 	@FXML
 	private Button createStock;
+	
+	@FXML
+	private Label created;
 	
 	@FXML
 	private ComboBox<Stock> StockComboUPD;
@@ -79,6 +83,9 @@ public class StockController {
 		stock.setCountry(stockCountryTF.getText());
 //		stock.setAddress(stockAddressTF.getText());
 
+		created.setText("Stock was created");
+		stockCityTF.clear();
+		stockCityTF.clear();
 		Response response = client.target("http://localhost:8080/forpro-backend").path("stocks/create").request()
 				.put(Entity.json(stock));
 
